@@ -51,16 +51,17 @@ const container_add_modal_box_buttons_cancel = document.querySelector('.containe
 const container_add_modal_box_buttons_confirm = document.querySelector('.container_add_modal_box_buttons_confirm');//кнопка подтвердить в модалке
 const container_add_modal_box_input = document.querySelector('.container_add_modal_box_input');//строка ввода в модалке
 
-function open_container_add_modal() {
+function open_container_add_modal() { //открыть модалку создания
   container_add_modal.classList.add('opened');
+  container_add_modal_box_input.focus();
 };
 
-function сlose_container_add_modal() {
+function сlose_container_add_modal() { //закрыть кликом модалку создания
   container_add_modal.classList.remove('opened');
   container_add_modal_box_input.value = ''
 };
 
-function close_container_add_modal_fromWindow(event) {
+function close_container_add_modal_fromWindow(event) { //закрыть кликом по пустому месту модалку создания
   if (event.target == container_add_modal ) {
     сlose_container_add_modal();
   };
@@ -185,6 +186,17 @@ document.querySelectorAll('container_todo_element_checkbox_completed').forEach(e
   element.addEventListener("click",swap_complete);
 });
 container_todo.addEventListener("click", change_list_elem);
+
+//Отслеживание нажатий клавиши
+document.addEventListener("keypress", function(event) {
+  if (event.keyCode == 13 && container_add_modal.classList[1]=="opened") {
+    //console.log('шорткат внутри модалки');
+    insert_to_list();}
+  else if(event.keyCode == 13 && container_add_modal.classList.length === 1 ){
+    //console.log('шорткат на создание');
+    open_container_add_modal();
+  }
+});
 
 
 
